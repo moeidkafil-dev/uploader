@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>فایل‌نت — FileNet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f0f14; --card:#111827; --accent:#3b82f6; --muted:#9ca3af; --highlight:#fbbf24;
+      --glass:rgba(255,255,255,0.03); --glass-2:rgba(255,255,255,0.02);
+      font-family: 'Vazirmatn', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;background:linear-gradient(180deg,#0b1120,#111827);color:#e6eef8}
+
+    .app{max-width:1200px;margin:20px auto;padding:20px;display:grid;grid-template-columns:1fr 300px;gap:20px}
+
+    header{grid-column:1/-1;display:flex;align-items:center;gap:16px}
+    .logo{display:flex;align-items:center;gap:12px}
+    .logo .mark{width:56px;height:56px;background:linear-gradient(135deg,var(--accent),var(--highlight));border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(59,130,246,0.25)}
+    .logo h1{margin:0;font-size:20px;font-weight:800;color:#fff}
+    .logo p{margin:0;color:var(--muted);font-size:12px}
+
+    .card{background:linear-gradient(180deg,var(--card),rgba(17,24,39,0.6));border-radius:14px;padding:20px;box-shadow:0 10px 40px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
+
+    .drop{border-radius:12px;padding:26px;border:1px dashed rgba(255,255,255,0.06);display:flex;align-items:center;gap:18px;transition:all .3s ease;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);flex-direction:column;text-align:center}
+    .drop:hover{transform:translateY(-3px);box-shadow:0 10px 25px rgba(0,0,0,0.5)}
+    .drop h2{margin:0;font-size:16px;color:#fff}
+    .drop p{margin:0;color:var(--muted);font-size:13px}
+
+    .files{margin-top:16px;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;gap:12px}
+    .file{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:10px;background:var(--card);box-shadow:0 4px 16px rgba(0,0,0,0.3);gap:12px;transition:all .3s ease}
+    .file:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.45)}
+    .meta{display:flex;gap:12px;align-items:center}
+    .icon{width:48px;height:48px;border-radius:10px;background:var(--highlight);display:flex;align-items:center;justify-content:center;color:#111;font-weight:700;flex-shrink:0}
+    .info{min-width:0}
+    .info b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff}
+    .info span{display:block;font-size:12px;color:var(--muted)}
+    .actions{display:flex;gap:8px;align-items:center}
+    .small{font-size:13px;padding:8px 10px;border-radius:8px;border:0;cursor:pointer}
+    .download{background:linear-gradient(90deg,var(--accent),var(--highlight));color:#041025;transition:all .2s ease;text-decoration:none;text-align:center}
+    .download:hover{filter:brightness(1.1)}
+
+    .sidebar{display:flex;flex-direction:column;gap:14px}
+    .ad{padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);min-height:100px;display:flex;flex-direction:column;gap:8px;transition:all .2s ease}
+    .ad:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.4)}
+    .ad h4{margin:0;color:#fff;font-size:14px}
+    .ad p{margin:0;color:var(--muted);font-size:13px}
+    .ad a{margin-top:6px;padding:8px 12px;background:var(--highlight);color:#111;text-decoration:none;border-radius:8px;text-align:center;font-weight:600;display:inline-block;transition:all .2s ease}
+    .ad a:hover{background:var(--accent);color:#fff}
+
+    footer{grid-column:1/-1;text-align:center;color:var(--muted);font-size:13px;margin-top:20px}
+
+    @media(max-width:980px){.app{grid-template-columns:1fr;padding:18px}.sidebar{order:2}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="logo">
+        <div class="mark">📂</div>
+        <div>
+          <h1>فایل‌نت — FileNet</h1>
+          <p>دانلود امن و سریع فایل‌ها</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="card">
+      <div id="dropArea" class="drop">
+        <h2>فایل آمادهٔ دانلود است</h2>
+        <p>کلیک روی دکمه دانلود برای دریافت فایل</p>
+      </div>
+
+      <div class="files" id="filesList" aria-live="polite"></div>
+    </main>
+
+    <aside class="sidebar">
+      <div class="card ad">
+        <h4>فلش‌های کرک</h4>
+        <p>فلش‌های آماده با ابزارهای کرک تمرینی.</p>
+        <a href="https://t.me/moeid_nigani" target="_blank">سفارش در تلگرام</a>
+      </div>
+      <div class="card ad">
+        <h4>ابزارهای کرک پسورد</h4>
+        <p>ابزارهای حرفه‌ای برای تست و کرک پسوردها.</p>
+        <a href="https://t.me/moeid_nigani" target="_blank">سفارش در تلگرام</a>
+      </div>
+      <div class="card ad">
+        <h4>ساعت هکری</h4>
+        <p>ساعت هوشمند با قابلیت‌های امنیتی پیشرفته.</p>
+        <a href="https://t.me/moeid_nigani" target="_blank">سفارش در تلگرام</a>
+      </div>
+    </aside>
+
+    <footer>
+      گزارش خرابی یا مشکل؟ به تلگرام پیام بدهید: <a href="https://t.me/moeid_nigani" target="_blank" style="color:var(--highlight)">@moeid_nigani</a>
+    </footer>
+  </div>
+
+  <script>
+    const state={files:[]};
+    const filesList=document.getElementById('filesList');
+
+    // فقط فایل ۱
+    const predefinedFiles=[{name:'file1.zip',size:102400,url:'https://fileport.io/get/LyON-TuFphEMtuQGP-PGJg_10SPF_AokfqHTipqSnyP6NR282x5zEisa6Uv61qoxehnHpo1lIoq2BJJRkO_L92FtBKPwzPqpBRGiuMMz_LRAzdNZUGKM8Aa1mMTVz78gvX-5QBncsZFmmDWOW6piLlLvcQUBD1krGCoiEYFzglfP2N4FbF304aTjPBxrH41oXyHGNB4XzJ66x66lm4gPsfC6ltvj7NeFxyVtsolavJ-pToa2I92X5G3bNF5f6-7XM'}];
+    state.files=predefinedFiles;
+
+    function humanSize(bytes){const units=['B','KB','MB','GB'];let i=0;while(bytes>=1024&&i<units.length-1){bytes/=1024;i++;}return bytes.toFixed(1)+' '+units[i];}
+
+    function render(){
+      filesList.innerHTML='';
+      for(const file of state.files){
+        const el=document.createElement('div');
+        el.className='file card';
+        el.innerHTML=`<div class="meta"><div class="icon">${file.name.split('.').pop().toUpperCase()}</div><div class="info"><b>${file.name}</b><span>${humanSize(file.size)}</span></div></div><div class="actions"><a class="small download" href="${file.url}" download>دانلود</a></div>`;
+        filesList.appendChild(el);
+      }
+    }
+
+    render();
+  </script>
+</body>
+</html>
