@@ -70,7 +70,7 @@
     </header>
 
     <main class="card">
-      <div id="dropArea" class="drop">
+      <div class="drop">
         <h2>فایل آمادهٔ دانلود است</h2>
         <p>کلیک روی دکمه دانلود برای دریافت فایل</p>
       </div>
@@ -97,26 +97,42 @@
     </aside>
 
     <footer>
-      گزارش خرابی یا مشکل؟ به تلگرام پیام بدهید: <a href="https://t.me/moeid_nigani" target="_blank" style="color:var(--highlight)">@moeid_nigani</a>
+      گزارش خرابی یا مشکل؟ به تلگرام پیام بدهید: 
+      <a href="https://t.me/moeid_nigani" target="_blank" style="color:var(--highlight)">@moeid_nigani</a>
     </footer>
   </div>
 
   <script>
-    const state={files:[]};
-    const filesList=document.getElementById('filesList');
+    const state = {
+      files: [
+        {name: 'file1.zip', size: 102400, url: 'file1.zip'}
+      ]
+    };
+    const filesList = document.getElementById('filesList');
 
-    // فقط فایل ۱
-    const predefinedFiles=[{name:'file1.zip',size:102400,url:'https://h1.nu/1hUQu'}];
-    state.files=predefinedFiles;
-
-    function humanSize(bytes){const units=['B','KB','MB','GB'];let i=0;while(bytes>=1024&&i<units.length-1){bytes/=1024;i++;}return bytes.toFixed(1)+' '+units[i];}
+    function humanSize(bytes){
+      const units = ['B','KB','MB','GB']; let i=0;
+      while(bytes>=1024 && i<units.length-1){ bytes/=1024; i++; }
+      return bytes.toFixed(1)+' '+units[i];
+    }
 
     function render(){
-      filesList.innerHTML='';
+      filesList.innerHTML = '';
       for(const file of state.files){
-        const el=document.createElement('div');
-        el.className='file card';
-        el.innerHTML=`<div class="meta"><div class="icon">${file.name.split('.').pop().toUpperCase()}</div><div class="info"><b>${file.name}</b><span>${humanSize(file.size)}</span></div></div><div class="actions"><a class="small download" href="${file.url}" download>دانلود</a></div>`;
+        const el = document.createElement('div');
+        el.className = 'file card';
+        el.innerHTML = `
+          <div class="meta">
+            <div class="icon">${file.name.split('.').pop().toUpperCase()}</div>
+            <div class="info">
+              <b>${file.name}</b>
+              <span>${humanSize(file.size)}</span>
+            </div>
+          </div>
+          <div class="actions">
+            <a class="small download" href="${file.url}" download>دانلود</a>
+          </div>
+        `;
         filesList.appendChild(el);
       }
     }
